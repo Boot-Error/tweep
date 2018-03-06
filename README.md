@@ -1,5 +1,5 @@
 # tweep
-[![Build Status](https://travis-ci.org/haccer/tweep.svg?branch=master)](https://travis-ci.org/haccer/tweep/) [![Python 3.5|3.6](https://img.shields.io/badge/Python-3.5%2F3.6-blue.svg)](https://www.python.org/download/releases/3.0/) [![GitHub license](https://img.shields.io/github/license/haccer/tweep.svg)](https://github.com/haccer/tweep/blob/master/LICENSE)
+![Version](https://img.shields.io/badge/Version-1.0-blue.svg) [![Build Status](https://travis-ci.org/haccer/tweep.svg?branch=master)](https://travis-ci.org/haccer/tweep/) [![Python 3.5|3.6](https://img.shields.io/badge/Python-3.5%2F3.6-blue.svg)](https://www.python.org/download/releases/3.0/) [![GitHub license](https://img.shields.io/github/license/haccer/tweep.svg)](https://github.com/haccer/tweep/blob/master/LICENSE)
 
 Tweep is an advanced Twitter scraping tool written in Python that allows for scraping Tweets from Twitter profiles **without** using Twitter's API.
 
@@ -19,6 +19,7 @@ Some of the benefits of using Tweep vs Twitter API:
 ## Usage
 - `-u` The user's Tweets you want to scrape.
 - `-s` Search for Tweets containing this word or phrase.
+- `-g` Retrieve tweets by geolocation. Format of the argument is lat,lon,range(km or mi).
 - `-o` Save output to a file.
 - `--year` Filter Tweets before the specified year. 
 - `--fruit` Display Tweets with "low-hanging-fruit".
@@ -27,6 +28,7 @@ Some of the benefits of using Tweep vs Twitter API:
 - `--users` Display users only (Use with `-s`).
 - `--csv` Write as a .csv file.
 - `--hashtags` Extract hashtags.
+- `--userid` Search from Twitter user's ID.
 - `--limit` Number of Tweets to pull (Increments of 20).
 - `--count` Display number Tweets scraped at the end of session.
 - `--stats` Show number of replies, retweets, and likes.
@@ -51,6 +53,7 @@ A few simple examples to help you understand the basics:
 - `python3 tweep.py -u username -o file.csv --csv` - Scrape Tweets and save as a csv file.
 - `python3 tweep.py -u username --fruit` - Show Tweets with low-hanging fruit.
 - `python3 tweep.py -s "Donald Trump" --verified --users` - List verified users that Tweet about Donald Trump.
+- `python3 tweep.py -g="48.880048,2.385939,1km" -o file.csv --csv` - Scrape Tweets from a radius of 1km around a place in Paris and export them to a csv file.
 
 ## Example String
 `955511208597184512 2018-01-22 18:43:19 GMT <now> pineapples are the best fruit`
@@ -58,21 +61,8 @@ A few simple examples to help you understand the basics:
 ## Screenshot
 <img src="https://i.imgur.com/RKdBrHr.png" />
 
-## Changelog
-### 2/21/18
-- Added new features:
-    - `--limit` feature allowing a user to specify how many Tweets get scraped (Incriments of 20).
-    - `--count` feature to display the total number of Tweets collected at the end of a Tweep session.
-    - `--stats` feature to display the number of replies, retweets, and likes.
-- Fixed:
-    - `Error handling` - Moved to a seperate function and better organized.
-### 1/21/18
-- Added:
-    - `Python3` update and rewriten using asyncio. Fetching Tweets should be a lot more faster naturally. 
-    - `Output` can be saved.
-    - `Replies` are now visible in the scrapes.
- - Removed:
-    - `Pics` feature, I'll re-add this on a later date.
+## Thanks
+Thanks to [@hpiedcoq](https://github.com/hpiedcoq) for contributing several features!
 
 ## Contact
 Shout me out on Twitter: [@now](https://twitter.com/now)
