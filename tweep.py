@@ -82,6 +82,14 @@ async def cont(response):
 
     return feed, init
 
+async def getPic(url):
+    async with aiohttp.ClientSession() as session:
+        response = await fetch(session, url)
+    soup = BeautifulSoup(response, "html.parser")
+    picture = soup.find("div", "AdaptiveMedia-photoContainer js-adaptive-photo ")
+    if picture is not None:
+        return picture["data-image-url"].replace(" ", "")
+
 async def getFeed(init):
     '''
     Parsing Descision:
@@ -132,6 +140,20 @@ async def outTweet(tweet):
     replies = tweet.find("span", "ProfileTweet-action--reply u-hiddenVisually").find("span")["data-tweet-stat-count"]
     retweets = tweet.find("span", "ProfileTweet-action--retweet u-hiddenVisually").find("span")["data-tweet-stat-count"]
     likes = tweet.find("span", "ProfileTweet-action--favorite u-hiddenVisually").find("span")["data-tweet-stat-count"]
+    
+    '''
+    Development:
+    Getting raw picture. Very slow for now.
+    '''
+    if arg.rawpic and "pic.twitter.com" in text:
+        try:
+            picture = await getPic("https://twitter.com/{0}/status/{1}/photo/1".format(username, tweetid))
+            if picture is not None:
+                pic = re.findall(r"pic.twitter.com/\w+", text)[-1]
+                text = text.replace(pic, picture)
+        except:
+            pass
+
     '''
     This part tries to get a list of mentions.
     It sometimes gets slow with Tweets that contain
@@ -285,6 +307,7 @@ if __name__ == "__main__":
     ap.add_argument("--limit", help="Number of Tweets to pull (Increments of 20).")
     ap.add_argument("--count", help="Display number Tweets scraped at the end of session.", action="store_true")
     ap.add_argument("--stats", help="Show number of replies, retweets, and likes", action="store_true")
+    ap.add_argument("--rawpic", help="Display raw picture URL (Slow).", action="store_true")
     arg = ap.parse_args()
 
     check()
