@@ -292,6 +292,24 @@ def check():
     if arg.csv and arg.o is None:
         Error("Error", "Please specify an output file (Example: -o file.csv")
 
+class A:
+    o = "file.csv"
+    s = "bitcoin"
+    elasticsearch = ""
+    userid = None
+    users = False
+    verified = False
+    year = None
+    fruit = False
+    g = None
+    hashtags = False
+    limit = None
+    since = None
+    stats = False
+    tweets = False
+    u = None
+    csv = None
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(prog="tweep.py", usage="python3 %(prog)s [options]", description="tweep.py - An Advanced Twitter Scraping Tool")
     ap.add_argument("-u", help="User's Tweets you want to scrape.")
@@ -312,6 +330,8 @@ if __name__ == "__main__":
     ap.add_argument("--count", help="Display number Tweets scraped at the end of session.", action="store_true")
     ap.add_argument("--stats", help="Show number of replies, retweets, and likes", action="store_true")
     arg = ap.parse_args()
+    arg = A()
+    print(arg)
 
     check()
 
